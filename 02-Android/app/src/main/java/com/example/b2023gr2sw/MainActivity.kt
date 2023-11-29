@@ -16,5 +16,6 @@ import com.example.b2023gr2sw.ui.theme.B2023gr2swTheme
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
     }
 }
