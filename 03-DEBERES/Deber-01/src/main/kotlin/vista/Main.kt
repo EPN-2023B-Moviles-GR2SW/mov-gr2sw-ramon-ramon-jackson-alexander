@@ -1,6 +1,8 @@
 package vista
 
 import controlador.MarcaCelularController
+import modelo.Celular
+import modelo.Marca
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -82,7 +84,7 @@ fun marcasCelular(){
     val controladorMarca: MarcaCelularController = MarcaCelularController()
     when (opcionMenu) {
         ("1") -> {
-            print("\nRegistrar una nueva Marca.\n\nIngrese los datos solicitados.\n")
+            print("\nRegistrar Una Nueva Marca\n\nIngrese los datos solicitados.\n")
 
             print("Nombre: ")
             val nombre = lectorDatos.nextLine()
@@ -105,7 +107,6 @@ fun marcasCelular(){
 
             // MANDAR ESTOS DATOS AL CONTROLADOR
             controladorMarca.manejadorCrearMarca(nombre, fechaFundFinal, cantidadModelos, ingresosAnuales)
-
             marcasCelular()
         }
         ("2") -> {
@@ -124,10 +125,10 @@ fun marcasCelular(){
                     val marcaVisualizar: String = lectorDatos.nextLine()
 
                     // Llamar al controlador
-                    controladorMarca.visualizarMarca(1, marcaVisualizar)
+                    controladorMarca.manejadorVisualizarMarca(1, marcaVisualizar)
                 }
                 ("2") -> {
-                    controladorMarca.visualizarMarca(2, "")
+                    controladorMarca.manejadorVisualizarMarca(2, "")
                 }
                 else -> {
                     marcasCelular()
@@ -135,7 +136,52 @@ fun marcasCelular(){
             }
         }
         ("3") -> {
-            //
+            print("\nActualizar Datos De Una Marca.\n\nIngrese el nombre de la Marca a actualizar.\n")
+
+            print("Nombre: ")
+            val nombre = lectorDatos.nextLine()
+
+            if (Marca().getByName(nombre) != null) {
+                print("Ingrese los nuevos datos para la Marca:\n")
+
+                print("Nombre: ")
+                val nombreAct = lectorDatos.nextLine()
+
+                print("Fecha de Fundacion (dd/MM/yyyy): ")
+                val fechaFundOrg = lectorDatos.nextLine()
+                val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
+                var fechaFundFinalAct: Date = Date()
+                try {
+                    fechaFundFinalAct = formatoFecha.parse(fechaFundOrg)
+                } catch (e: Exception) {
+                    println("Error al convertir la fecha")
+                }
+
+                print("Cantidad de Modelos: ")
+                val cantidadModelosAct: Int = lectorDatos.nextLine().toInt()
+
+                print("Ingresos Anuales: ")
+                val ingresosAnualesAct: Double = lectorDatos.nextLine().toDouble()
+
+                val listaCel = Marca().getByName(nombre).listaCelulares
+
+                // MANDAR ESTOS DATOS AL CONTROLADOR
+                controladorMarca.manejadorActualizarMarca(nombre, nombreAct, fechaFundFinalAct,
+                    cantidadModelosAct, ingresosAnualesAct, listaCel)
+
+                marcasCelular()
+            }
+        }
+        ("4") -> {
+            print("\nEliminar Una Marca\n")
+            print("IMPORTANTE: Al eliminar una Marca tambien se eliminaran sus celulares.\n\n")
+            print("Ingrese el nombre de la Marca a eliminar.\n")
+
+            print("Nombre: ")
+            val nombre = lectorDatos.nextLine()
+
+            controladorMarca.manejadorEliminarMarca(nombre)
+            marcasCelular()
         }
         else -> {
             gestionarMYC()

@@ -7,7 +7,7 @@ class Marca (
     protected val fechaFundacion: Date? = null,
     protected val cantidadModelos: Int? = null,
     protected val ingresosAnuales: Double? = null,
-    protected val listaCelulares: MutableList<Celular>? = null
+    val listaCelulares: MutableList<Celular>? = null
     ) {
 
     init {
@@ -18,6 +18,7 @@ class Marca (
     fun crearMarca(marca: Marca){
         // Poner el codigo para guardar en los archivos
         listaMarcas.add(marca)
+        println("Marca Creada Exitosamente.")
     }
 
     fun getByName(nombreMarca: String): Marca{
@@ -39,10 +40,13 @@ class Marca (
     fun actualizarMarca(marcaModifcada: Marca, nombreMarcaAnterior: String){
         val indice = listaMarcas.indexOfFirst { it.nombre == nombreMarcaAnterior }
         listaMarcas[indice] = marcaModifcada
+        println("Marca Actualizada Exitosamente.")
     }
 
     fun eliminarMarca(nombre: String) {
         listaMarcas.removeAt(listaMarcas.indexOfFirst { it.nombre == nombre })
+        // Ver si se debe hacer algo con la lista de celulares
+        println("La Marca Y Su Celulares Se Han Eliminado Exitosamente.")
     }
 
     fun mostrarMarca(nombre: String) {

@@ -14,7 +14,7 @@ class MarcaCelularController {
         Marca().crearMarca(marcaNueva)
     }
 
-    fun visualizarMarca(tipo: Int, nombre: String) {
+    fun manejadorVisualizarMarca(tipo: Int, nombre: String) {
         if (tipo == 1) {
             // Para ver una especifica
             Marca().mostrarMarca(nombre)
@@ -27,6 +27,19 @@ class MarcaCelularController {
         val señal: String = scanner.nextLine()
         if (señal != null) {
             vista.marcasCelular()
+        }
+    }
+
+    fun manejadorActualizarMarca(nombre: String, nombreN: String, fechaFundacionN: Date,
+                                 cantidadModelosN: Int, ingresosAnualesN: Double,
+                                 listaCelN: MutableList<Celular>?) {
+        val marcaActualizada: Marca = Marca(nombreN, fechaFundacionN, cantidadModelosN, ingresosAnualesN, listaCelN)
+        Marca().actualizarMarca(marcaActualizada, nombre)
+    }
+
+    fun manejadorEliminarMarca(nombre: String) {
+        if (Marca().getByName(nombre) != null) {
+            Marca().eliminarMarca(nombre)
         }
     }
 }
