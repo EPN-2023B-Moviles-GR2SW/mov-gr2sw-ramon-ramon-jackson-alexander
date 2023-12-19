@@ -4,4 +4,9 @@
     <string name="saludo">Good morning</string>
     <color name="colorTexto">#27AE60</color>
     <color name="colorFondo">#A569BD</color>
+    <string-array name="string_array_opciones_dialogo">
+        <item>Lunes</item>
+        <item>Martes</item>
+        <item>Miercoles</item>
+    </string-array>
 </resources>
