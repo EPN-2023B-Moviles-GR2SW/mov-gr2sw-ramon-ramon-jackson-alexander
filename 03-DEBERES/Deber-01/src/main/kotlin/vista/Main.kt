@@ -1,7 +1,6 @@
 package vista
 
 import controlador.MarcaCelularController
-import modelo.Celular
 import modelo.Marca
 import java.text.SimpleDateFormat
 import java.util.*
@@ -190,7 +189,129 @@ fun marcasCelular(){
 }
 
 fun celulares() {
+    val lectorDatos = Scanner(System.`in`)
 
+    print("Para usar este apartado es necesario ingresar el nombre de la marca\n " +
+            "a la que pertenecen los celulares\n")
+    print("Nombre de la Marca -> ")
+    val nombreMarca = lectorDatos.nextLine()
+
+    print("\nSeleccione una de las siguientes opciones:\n")
+
+    var opcionesCelulares: String = ""
+    opcionesCelulares += "1. Crear un Celular\n"
+    opcionesCelulares += "2. Visualizar los datos de un Celular\n"
+    opcionesCelulares += "3. Actualizar los datos de un Celular\n"
+    opcionesCelulares += "4. Eliminar un Celular\n"
+    opcionesCelulares += "5. Regresar\n"
+    println(opcionesCelulares)
+
+    print("-> ")
+    val opcionMenu = lectorDatos.nextLine()
+    val controladorCelular: MarcaCelularController = MarcaCelularController()
+    when (opcionMenu) {
+        ("1") -> {
+            print("\nRegistrar Un Nuevo Celular\n\nIngrese los datos solicitados.\n")
+
+            print("Modelo: ")
+            val modelo = lectorDatos.nextLine()
+
+            print("Sistema Operativo: ")
+            val sistemaOperativo = lectorDatos.nextLine()
+
+            print("Almacenamiento en GB: ")
+            val almacenamiento: Int = lectorDatos.nextLine().toInt()
+
+            print("Precio: ")
+            val precio: Double = lectorDatos.nextLine().toDouble()
+
+            print("¿Es Gamer? (1 = SI, 0 = NO")
+            val opcionGamer = lectorDatos.nextLine().toInt()
+            var esGamer: Boolean = opcionGamer == 1
+
+            // MANDAR ESTOS DATOS AL CONTROLADOR
+            // En el CONTROLADOR hacer que se cree el celular (Celular.kt) y que este se añada al arreglo de
+            // celulares de la marca que se obtuvo el nombre al inicio (Marca.kt).
+            marcasCelular()
+        }
+        ("2") -> {
+            var opcionesVerMarca: String = ""
+            opcionesVerMarca += "\nSeleccione una opcion:\n"
+            opcionesVerMarca += "1. Visualizar una Marca especifica\n"
+            opcionesVerMarca += "2. Visualizar todas las Marcas\n"
+            opcionesVerMarca += "3. Regresar\n"
+            println(opcionesVerMarca)
+
+            print("Ingrese la opcion que desea seleccionar: ")
+            val opcionVisualizar = lectorDatos.nextLine()
+            when (opcionVisualizar) {
+                ("1") -> {
+                    print("\nIngrese el nombre de la Marca: ")
+                    val marcaVisualizar: String = lectorDatos.nextLine()
+
+                    // Llamar al controlador
+                    controladorCelular.manejadorVisualizarMarca(1, marcaVisualizar)
+                }
+                ("2") -> {
+                    controladorCelular.manejadorVisualizarMarca(2, "")
+                }
+                else -> {
+                    marcasCelular()
+                }
+            }
+        }
+        ("3") -> {
+            print("\nActualizar Datos De Una Marca.\n\nIngrese el nombre de la Marca a actualizar.\n")
+
+            print("Nombre: ")
+            val nombre = lectorDatos.nextLine()
+
+            if (Marca().getByName(nombre) != null) {
+                print("Ingrese los nuevos datos para la Marca:\n")
+
+                print("Nombre: ")
+                val nombreAct = lectorDatos.nextLine()
+
+                print("Fecha de Fundacion (dd/MM/yyyy): ")
+                val fechaFundOrg = lectorDatos.nextLine()
+                val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
+                var fechaFundFinalAct: Date = Date()
+                try {
+                    fechaFundFinalAct = formatoFecha.parse(fechaFundOrg)
+                } catch (e: Exception) {
+                    println("Error al convertir la fecha")
+                }
+
+                print("Cantidad de Modelos: ")
+                val cantidadModelosAct: Int = lectorDatos.nextLine().toInt()
+
+                print("Ingresos Anuales: ")
+                val ingresosAnualesAct: Double = lectorDatos.nextLine().toDouble()
+
+                val listaCel = Marca().getByName(nombre).listaCelulares
+
+                // MANDAR ESTOS DATOS AL CONTROLADOR
+                controladorCelular.manejadorActualizarMarca(nombre, nombreAct, fechaFundFinalAct,
+                    cantidadModelosAct, ingresosAnualesAct, listaCel)
+
+                marcasCelular()
+            }
+        }
+        ("4") -> {
+            print("\nEliminar Una Marca\n")
+            print("IMPORTANTE: Al eliminar una Marca tambien se eliminaran sus celulares.\n\n")
+            print("Ingrese el nombre de la Marca a eliminar.\n")
+
+            print("Nombre: ")
+            val nombre = lectorDatos.nextLine()
+
+            controladorCelular.manejadorEliminarMarca(nombre)
+            marcasCelular()
+        }
+        else -> {
+            gestionarMYC()
+        }
+    }
 }
 
 fun visualizarModelos() {
