@@ -1,65 +1,71 @@
 package modelo
 
-import java.util.NoSuchElementException
-
 class Celular(
-    protected val modelo: String,
-    protected val sistemaOperativo: String,
-    protected val almacenamientoGB: Int,
-    protected val precio: Double,
-    protected val esGamer: Boolean,
+    protected val modelo: String? = null,
+    protected val sistemaOperativo: String? = null,
+    protected val almacenamientoGB: Int? = null,
+    protected val precio: Double? = null,
+    protected val esGamer: Boolean? = null
     ) {
-
-    // Para probar el funcionamiento
-    val listaCelulares: MutableList<Celular>
-        get(): MutableList<Celular> {
-            // Poner la logica para recuperar los celulares del archivo y crear la lista
-            return listaCelulares
-        }
 
     init {
         this.modelo; this.sistemaOperativo; this.almacenamientoGB;
         this.precio; this.esGamer
     }
 
-    fun crearCelular(celular: Celular){
-        // Poner el codigo para guardar en los archivos
-        listaCelulares.add(celular)
-    }
-
-    fun getByModel(modelo: String): Celular{
-        var celularEncontrado: Celular? = null
-
-        // forEach para recorrer la lista de celulares
-        listaCelulares.forEach {
-            if (it.modelo == modelo) {
-                // Si encuentra una coincidencia, asigna la marca y termina el bucle
-                celularEncontrado = it
-                return@forEach
+    fun mostrarCelular(listaCelulares: MutableList<Celular>?, modeloMostrar: String) {
+        if (listaCelulares != null) {
+            listaCelulares.forEach {
+                if (it.modelo == modeloMostrar) {
+                    println(it)
+                    return
+                } else {
+                    println("El Modelo De Celular $modeloMostrar No Existe.")
+                }
             }
+        } else {
+            println("La Marca No Tiene Modelos De Celulares.")
         }
-
-        // No se encontro ninguna coincidencia, CAMBIAR ESTO y complementar esto en el Controlador
-        return celularEncontrado ?: throw NoSuchElementException("No se encontró un celular con el modelo $modelo")
     }
 
-    fun actualizarCelular(celularModifcado: Celular, modeloCelularAnterior: String){
-        val indice = listaCelulares.indexOfFirst { it.modelo == modeloCelularAnterior }
-        listaCelulares[indice] = celularModifcado
+    fun mostrarCelularesDeUnaMarca(listaCelularesMarca: MutableList<Celular>?) {
+        if (listaCelularesMarca != null) {
+            listaCelularesMarca.forEach {
+                print(it)
+            }
+        } else {
+            println("La Marca No Tiene Modelos De Celulares.")
+        }
     }
 
-    fun eliminarCelular(modelo: String) {
-        listaCelulares.removeAt(listaCelulares.indexOfFirst { it.modelo == modelo })
+    fun actualizarCelular(marca: String, modeloActual: String, celularNuevo: Celular) {
+        val indice = Marca().getByName(marca)?.listaCelulares?.indexOfFirst { it.modelo == modeloActual }
+        if (indice != null) {
+            Marca().getByName(marca)?.listaCelulares?.set(indice, celularNuevo)
+            println("El Celular Se Ha Actualizado Exitosamente.")
+        } else {
+            println("La Marca $marca No Tiene El Celular $modeloActual Resgistrado.")
+        }
+    }
+
+    fun eliminarCelular(marca: String, modeloEliminar: String) {
+        val indiceEliminar = Marca().getByName(marca)?.listaCelulares?.indexOfFirst { it.modelo == modeloEliminar }
+        if (indiceEliminar != null) {
+            Marca().getByName(marca)?.listaCelulares?.removeAt(indiceEliminar)
+            println("El Celular Se Ha Eliminado Exitosamente.")
+        } else {
+            println("La Marca $marca No Tiene El Celular $modeloEliminar Resgistrado.")
+        }
     }
 
     override fun toString(): String {
         var celularToString: String = ""
 
-        celularToString += "Modelo:' $modelo'\n"
+        celularToString += "Modelo: '$modelo'\n"
         celularToString += "Sistema Operativo: $sistemaOperativo\n"
         celularToString += "Almacenamiento (GB): $almacenamientoGB\n"
         celularToString += "Precio: $precio\n"
-        celularToString += "Tiene caracteristicas gamer: $esGamer\n"
+        celularToString += "Tiene caracteristicas gamer: $esGamer\n\n"
 
         return celularToString
     }

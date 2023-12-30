@@ -7,7 +7,7 @@ class Marca (
     protected val fechaFundacion: Date? = null,
     protected val cantidadModelos: Int? = null,
     protected val ingresosAnuales: Double? = null,
-    val listaCelulares: MutableList<Celular>? = null
+    var listaCelulares: MutableList<Celular>? = null
     ) {
 
     init {
@@ -21,7 +21,7 @@ class Marca (
         println("Marca Creada Exitosamente.")
     }
 
-    fun getByName(nombreMarca: String): Marca{
+    fun getByName(nombreMarca: String): Marca? {
         var marcaEncontrada: Marca? = null
 
         // forEach para recorrer la lista de marcas
@@ -33,30 +33,63 @@ class Marca (
             }
         }
 
-        // No se encontro ninguna coincidencia, CAMBIAR ESTO y complementar esto en el Controlador
-        return marcaEncontrada ?: throw NoSuchElementException("No se encontró una marca con el nombre $nombreMarca")
+        // No se encontro ninguna coincidencia
+        return marcaEncontrada
     }
 
-    fun actualizarMarca(marcaModifcada: Marca, nombreMarcaAnterior: String){
+    fun actualizarMarca(marcaModifcada: Marca, nombreMarcaAnterior: String, tipo: Int? = 0){
         val indice = listaMarcas.indexOfFirst { it.nombre == nombreMarcaAnterior }
         listaMarcas[indice] = marcaModifcada
-        println("Marca Actualizada Exitosamente.")
+        if (tipo == 1) {
+            println("Celular Creado Exitosamente")
+        } else {
+            println("Marca Actualizada Exitosamente.")
+        }
     }
 
     fun eliminarMarca(nombre: String) {
         listaMarcas.removeAt(listaMarcas.indexOfFirst { it.nombre == nombre })
         // Ver si se debe hacer algo con la lista de celulares
-        println("La Marca Y Su Celulares Se Han Eliminado Exitosamente.")
+        println("La Marca Y Sus Celulares Se Han Eliminado Exitosamente.")
     }
 
     fun mostrarMarca(nombre: String) {
-        println(getByName(nombre))
+        if (getByName(nombre) != null) {
+            println(getByName(nombre))
+            return
+        } else {
+            println("La Marca $nombre No Existe")
+        }
     }
 
     fun mostrarListaMarcas() {
-        getListaMarcas().forEach { marca ->
-            println(marca)
-            println()
+        if (getListaMarcas().isEmpty()) {
+            println("No Existen Marcas Registradas.")
+        } else {
+            getListaMarcas().forEach { marca ->
+                println(marca)
+            }
+        }
+    }
+
+    fun mostrarListaMarcaYCelulares() {
+        if (getListaMarcas().isEmpty()) {
+            println("No Existen Marcas Registradas.")
+        } else {
+            var elementosLista: String = ""
+            getListaMarcas().forEach { marca ->
+                elementosLista += "---- " + marca.nombre + " ----\n"
+                if (marca.listaCelulares != null) {
+                    for (celular in marca.listaCelulares!!) {
+                        elementosLista += celular.toString()
+                    }
+                } else {
+                    elementosLista += "Esta Marca No Tiene Celulares Registrados.\n"
+                }
+
+                println(elementosLista)
+                elementosLista = ""
+            }
         }
     }
 
@@ -74,11 +107,20 @@ class Marca (
     override fun toString(): String {
         var marcaToString: String = ""
 
+        marcaToString += "******************************************************\n"
         marcaToString += "Nombre: '$nombre'\n"
         marcaToString += "Fecha de Fundacion: $fechaFundacion\n"
         marcaToString += "Cantidad de Modelos: $cantidadModelos \n"
-        marcaToString += "Ingresos Anuales: $ingresosAnuales\n"
-        // marcaToString += println(listaCelulares)
+        marcaToString += "Ingresos Anuales: $ingresosAnuales\n\n"
+        marcaToString += "   ---Lista De Celulares---\n"
+
+        if (listaCelulares != null) {
+            for (elemento in listaCelulares!!) {
+                marcaToString += elemento.toString()
+            }
+        } else {
+            marcaToString += "Esta Marca No Tiene Celulares Registrados.\n"
+        }
 
         return marcaToString
     }
