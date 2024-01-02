@@ -1,11 +1,17 @@
 package vista
 
 import controlador.MarcaCelularController
+import modelo.Celular
 import modelo.Marca
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileWriter
 import java.text.SimpleDateFormat
 import java.util.*
 
 fun main(){
+    // Aqui leer los datos de los archivos para ponerlos en las listas
+
     val lectorDatos = Scanner(System.`in`)
 
     var bienvenida: String = ""
@@ -34,6 +40,9 @@ fun main(){
         }
     }
     lectorDatos.close()
+
+    // Aqui escribir los nuevos datos en los archivos
+    guardarMarcasYCelulares()
 }
 
 fun gestionarMYC() {
@@ -327,4 +336,110 @@ fun celulares() {
 fun visualizarModelos() {
     Marca().mostrarListaMarcaYCelulares()
     main()
+}
+
+fun leerMarcas(): ArrayList<ArrayList<String>>? {
+    val archivoM = File("marcas.txt")
+    val contenidoM: ArrayList<String> = arrayListOf<String>()
+    var marcas: ArrayList<ArrayList<String>>? = null
+
+    try {
+        val lectorM = BufferedReader(archivoM.reader())
+
+        lectorM.useLines { lines ->
+            lines.forEach {
+                // contenidoM.append(it).append("\n")
+                if (it != "st") { // Verificar si hay marcas
+                    marcas = arrayListOf<ArrayList<String>>()
+                    if (it != "-") { // Se obtienen los datos de una Marca
+                        contenidoM.add(it)
+                    } else { // Se guardan los datos de una Marca en un arreglo general
+                        marcas!!.add(contenidoM)
+                        contenidoM.clear()
+                    }
+                } else {
+                    // Retornar NULL o algo similar porque no hay datos de marcas (ni celulares)
+                    return marcas
+                }
+            }
+        }
+        return marcas
+    } catch (e: Exception) {
+        throw RuntimeException("Error al leer el archivo", e)
+    }
+}
+
+fun leerCelulares(): ArrayList<Celular> {
+    val archivoC = File("celulares.txt")
+    val contenidoC: ArrayList<String> = arrayListOf<String>()
+    var celulares: ArrayList<Celular> = arrayListOf<Celular>()
+
+    try {
+        val lectorC = BufferedReader(archivoC.reader())
+
+        lectorC.useLines { lines ->
+            lines.forEach {
+                // contenidoM.append(it).append("\n")
+                if (it != "st") { // Verificar si hay Celulares de una Marca
+                    if (it != "-" && it != "--") { // Se obtienen los datos de un Celular de una misma Marca
+                        contenidoC.add(it)
+                    } else if (it == "--") {
+                        celulares.add(Celular())
+                    } else {
+                        // celulares.add(contenidoC)
+                        val celularRecuperado: Celular = Celular(contenidoC[0], contenidoC[1],
+                            contenidoC[2].toInt(), contenidoC[3].toDouble(), contenidoC[4].toBooleanStrict())
+                        celulares.add(celularRecuperado)
+                        contenidoC.clear()
+                    }
+                } else {
+                    // Se guarda un Celular con los atributos NULL en caso de que una marca no tenga celulares
+                    celulares.add(Celular())
+                    // return celulares
+                }
+            }
+        }
+        return celulares
+    } catch (e: Exception) {
+        throw RuntimeException("Error al leer el archivo", e)
+    }
+}
+
+fun recuperarMarcasYCelulares() {
+    val listaMarcas: MutableList<Marca> = mutableListOf<Marca>()
+
+    if (leerMarcas() != null) {
+        var nombreR: String = ""
+        var fechaFR: Date = Date()
+        var cantidadMR: Int = 0
+        var ingresosAR: Double = 0.0
+        var celularesR: MutableList<Celular> = mutableListOf<Celular>()
+
+        for (datosMarca in leerMarcas()!!){
+            
+        }
+    } else {
+        // Mandar una lista de celulares NULA
+    }
+
+}
+
+fun guardarMarcasYCelulares() {
+    val datosMarcas: String = Marca().prepararMarcasGuardar()
+    val datosCelulares: String = Marca().prepararCelularesGuardar()
+    val archivoM = File("marcas.txt")
+    val archivoC = File("celulares.txt")
+
+    try {
+        val escritorM = FileWriter(archivoM)
+        escritorM.write(datosMarcas)
+        escritorM.close()
+        val escritorC = FileWriter(archivoC)
+        escritorC.write(datosCelulares)
+        escritorC.close()
+
+        println("Archivos creados con éxito.")
+    } catch (e: Exception) {
+        println("Error al crear los archivos: $e")
+    }
 }

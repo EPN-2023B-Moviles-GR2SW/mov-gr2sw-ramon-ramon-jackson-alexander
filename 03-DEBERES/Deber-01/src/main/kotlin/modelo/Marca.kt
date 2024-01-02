@@ -93,6 +93,46 @@ class Marca (
         }
     }
 
+    fun prepararMarcasGuardar(): String {
+        var datosMarcas: String = ""
+
+        if (getListaMarcas() != null) {
+            for (marca in getListaMarcas()) {
+                datosMarcas += marca.nombre + "\n"
+                datosMarcas += marca.fechaFundacion.toString() + "\n"
+                datosMarcas += marca.cantidadModelos.toString() + "\n"
+                datosMarcas += marca.ingresosAnuales.toString() + "\n"
+                datosMarcas += "-\n" // Separar los datos de cada marca, excepto las lista de celulares
+            }
+        } else {
+            datosMarcas += "st\n" // No hay marcas
+        }
+
+        return datosMarcas
+    }
+
+    fun prepararCelularesGuardar(): String {
+        var datosCelulares: String = ""
+
+        for (marca in getListaMarcas()) {
+            if (marca.listaCelulares != null) {
+                for (celular in marca.listaCelulares!!) {
+                    datosCelulares += celular.modelo + "\n"
+                    datosCelulares += celular.sistemaOperativo + "\n"
+                    datosCelulares += celular.almacenamientoGB.toString() + "\n"
+                    datosCelulares += celular.precio.toString() + "\n"
+                    datosCelulares += celular.esGamer.toString() + "\n"
+                    datosCelulares += "-\n" // Separar los celulares de una misma marca
+                }
+            } else {
+                datosCelulares += "st\n" // La lista de celulares de una Marca esta vacia
+            }
+            datosCelulares += "--\n" // Separacion entre celulares de distintas marcas
+        }
+
+        return datosCelulares
+    }
+
     companion object {
         private val listaMarcas = mutableListOf<Marca>()
 
@@ -102,6 +142,10 @@ class Marca (
             }
             return getListaMarcas()
         }
+    }
+
+    fun asiganarMarcasYCelulares() {
+
     }
 
     override fun toString(): String {

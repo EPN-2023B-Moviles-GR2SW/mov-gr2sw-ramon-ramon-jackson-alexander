@@ -1,11 +1,11 @@
 package modelo
 
 class Celular(
-    protected val modelo: String? = null,
-    protected val sistemaOperativo: String? = null,
-    protected val almacenamientoGB: Int? = null,
-    protected val precio: Double? = null,
-    protected val esGamer: Boolean? = null
+    val modelo: String? = null,
+    val sistemaOperativo: String? = null,
+    val almacenamientoGB: Int? = null,
+    val precio: Double? = null,
+    val esGamer: Boolean? = null
     ) {
 
     init {
