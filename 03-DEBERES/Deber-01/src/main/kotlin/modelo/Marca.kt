@@ -133,6 +133,19 @@ class Marca (
         return datosCelulares
     }
 
+    fun cargarMarcasYCelulares() {
+        for (marca in vista.recuperarMarcasYCelulares()) {
+            for (celu in marca.listaCelulares!!) {
+                if (celu.modelo == null) {
+                    marca.listaCelulares = null
+                    break
+                }
+            }
+
+            listaMarcas.add(marca)
+        }
+    }
+
     companion object {
         private val listaMarcas = mutableListOf<Marca>()
 
@@ -142,10 +155,6 @@ class Marca (
             }
             return getListaMarcas()
         }
-    }
-
-    fun asiganarMarcasYCelulares() {
-
     }
 
     override fun toString(): String {

@@ -4,13 +4,15 @@ import controlador.MarcaCelularController
 import modelo.Celular
 import modelo.Marca
 import java.io.BufferedReader
+import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 fun main(){
-    // Aqui leer los datos de los archivos para ponerlos en las listas
+    Marca().cargarMarcasYCelulares()
 
     val lectorDatos = Scanner(System.`in`)
 
@@ -338,44 +340,47 @@ fun visualizarModelos() {
     main()
 }
 
-fun leerMarcas(): ArrayList<ArrayList<String>>? {
+fun leerMarcas(): ArrayList<ArrayList<String>> {
     val archivoM = File("marcas.txt")
     val contenidoM: ArrayList<String> = arrayListOf<String>()
-    var marcas: ArrayList<ArrayList<String>>? = null
+    val marcas: ArrayList<ArrayList<String>> = arrayListOf<ArrayList<String>>()
 
     try {
         val lectorM = BufferedReader(archivoM.reader())
 
         lectorM.useLines { lines ->
             lines.forEach {
-                // contenidoM.append(it).append("\n")
                 if (it != "st") { // Verificar si hay marcas
-                    marcas = arrayListOf<ArrayList<String>>()
                     if (it != "-") { // Se obtienen los datos de una Marca
                         contenidoM.add(it)
                     } else { // Se guardan los datos de una Marca en un arreglo general
-                        marcas!!.add(contenidoM)
+                        // AL HACER CLEAR SE BORRA TODO, INCLUSO LO GUARDADO EN EL ARREGLO FINAL!!!
+                        marcas.add(ArrayList(contenidoM))
                         contenidoM.clear()
                     }
                 } else {
                     // Retornar NULL o algo similar porque no hay datos de marcas (ni celulares)
+                    contenidoM.add("SD")
+                    marcas.add(contenidoM)
                     return marcas
                 }
             }
         }
+        lectorM.close()
         return marcas
     } catch (e: Exception) {
         throw RuntimeException("Error al leer el archivo", e)
     }
 }
 
-fun leerCelulares(): ArrayList<Celular> {
+fun leerCelulares(): ArrayList<MutableList<Celular>> {
     val archivoC = File("celulares.txt")
     val contenidoC: ArrayList<String> = arrayListOf<String>()
-    var celulares: ArrayList<Celular> = arrayListOf<Celular>()
+    val celularesPorMarca: ArrayList<MutableList<Celular>> = arrayListOf()
 
     try {
         val lectorC = BufferedReader(archivoC.reader())
+        val listaMutableCelulares: MutableList<Celular> = mutableListOf()
 
         lectorC.useLines { lines ->
             lines.forEach {
@@ -384,44 +389,58 @@ fun leerCelulares(): ArrayList<Celular> {
                     if (it != "-" && it != "--") { // Se obtienen los datos de un Celular de una misma Marca
                         contenidoC.add(it)
                     } else if (it == "--") {
-                        celulares.add(Celular())
+                        celularesPorMarca.add(ArrayList(listaMutableCelulares))
+                        listaMutableCelulares.clear()
                     } else {
                         // celulares.add(contenidoC)
                         val celularRecuperado: Celular = Celular(contenidoC[0], contenidoC[1],
                             contenidoC[2].toInt(), contenidoC[3].toDouble(), contenidoC[4].toBooleanStrict())
-                        celulares.add(celularRecuperado)
+                        listaMutableCelulares.add(celularRecuperado)
                         contenidoC.clear()
                     }
                 } else {
                     // Se guarda un Celular con los atributos NULL en caso de que una marca no tenga celulares
-                    celulares.add(Celular())
-                    // return celulares
+                    listaMutableCelulares.add(Celular())
+                    celularesPorMarca.add(ArrayList(listaMutableCelulares))
+                    listaMutableCelulares.clear()
                 }
             }
         }
-        return celulares
+        lectorC.close()
     } catch (e: Exception) {
         throw RuntimeException("Error al leer el archivo", e)
     }
+    return celularesPorMarca
 }
 
-fun recuperarMarcasYCelulares() {
+fun recuperarMarcasYCelulares(): MutableList<Marca> {
     val listaMarcas: MutableList<Marca> = mutableListOf<Marca>()
+    val marcasObtenidas: ArrayList<ArrayList<String>> = leerMarcas()
+    val celularesObtenidos: ArrayList<MutableList<Celular>> = leerCelulares()
 
-    if (leerMarcas() != null) {
-        var nombreR: String = ""
-        var fechaFR: Date = Date()
-        var cantidadMR: Int = 0
-        var ingresosAR: Double = 0.0
-        var celularesR: MutableList<Celular> = mutableListOf<Celular>()
+    if (marcasObtenidas.isNotEmpty()) {
+        val formatoFecha = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy")
+        var fechaFund: String = ""
+        var fechaFundacionR: Date = Date()
+        var marcaRecuperada: Marca = Marca()
 
-        for (datosMarca in leerMarcas()!!){
-            
+        for (i in 0 until marcasObtenidas.size){
+            fechaFund = marcasObtenidas[i][1]
+
+            try {
+                fechaFundacionR = formatoFecha.parse(fechaFund)
+            } catch (e: Exception) {
+                println("Error al convertir la cadena a fecha: ${e.message}")
+            }
+
+            marcaRecuperada = Marca(marcasObtenidas[i][0], fechaFundacionR, marcasObtenidas[i][2].toInt(),
+                                marcasObtenidas[i][3].toDouble(), celularesObtenidos[i])
+
+            listaMarcas.add(marcaRecuperada)
         }
-    } else {
-        // Mandar una lista de celulares NULA
     }
 
+    return listaMarcas
 }
 
 fun guardarMarcasYCelulares() {
@@ -431,11 +450,13 @@ fun guardarMarcasYCelulares() {
     val archivoC = File("celulares.txt")
 
     try {
-        val escritorM = FileWriter(archivoM)
+        val escritorM = FileWriter(archivoM, false)
         escritorM.write(datosMarcas)
+        escritorM.flush()
         escritorM.close()
-        val escritorC = FileWriter(archivoC)
+        val escritorC = FileWriter(archivoC, false)
         escritorC.write(datosCelulares)
+        escritorC.flush()
         escritorC.close()
 
         println("Archivos creados con éxito.")

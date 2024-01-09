@@ -1,7 +1,0 @@
-Redmi note 10 pro
-Android
-128
-240.0
-false
--
---
