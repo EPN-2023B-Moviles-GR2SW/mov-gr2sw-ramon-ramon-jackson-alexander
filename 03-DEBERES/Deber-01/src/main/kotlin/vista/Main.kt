@@ -4,7 +4,6 @@ import controlador.MarcaCelularController
 import modelo.Celular
 import modelo.Marca
 import java.io.BufferedReader
-import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
 import java.text.SimpleDateFormat
@@ -12,7 +11,10 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 fun main(){
-    Marca().cargarMarcasYCelulares()
+    if (File("marcas.txt").exists() &&
+        File("celulares.txt").exists()) {
+        Marca().cargarMarcasYCelulares()
+    }
 
     val lectorDatos = Scanner(System.`in`)
 
@@ -367,6 +369,7 @@ fun leerMarcas(): ArrayList<ArrayList<String>> {
             }
         }
         lectorM.close()
+        archivoM.delete()
         return marcas
     } catch (e: Exception) {
         throw RuntimeException("Error al leer el archivo", e)
@@ -406,6 +409,7 @@ fun leerCelulares(): ArrayList<MutableList<Celular>> {
                 }
             }
         }
+        archivoC.delete()
         lectorC.close()
     } catch (e: Exception) {
         throw RuntimeException("Error al leer el archivo", e)
