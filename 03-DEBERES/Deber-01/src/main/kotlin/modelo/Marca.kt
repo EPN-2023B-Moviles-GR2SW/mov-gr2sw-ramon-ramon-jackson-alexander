@@ -16,7 +16,6 @@ class Marca (
     }
 
     fun crearMarca(marca: Marca){
-        // Poner el codigo para guardar en los archivos
         listaMarcas.add(marca)
         println("Marca Creada Exitosamente.")
     }
@@ -24,7 +23,6 @@ class Marca (
     fun getByName(nombreMarca: String): Marca? {
         var marcaEncontrada: Marca? = null
 
-        // forEach para recorrer la lista de marcas
         listaMarcas.forEach {
             if (it.nombre == nombreMarca) {
                 // Si encuentra una coincidencia, asigna la marca y termina el bucle
@@ -49,7 +47,6 @@ class Marca (
 
     fun eliminarMarca(nombre: String) {
         listaMarcas.removeAt(listaMarcas.indexOfFirst { it.nombre == nombre })
-        // Ver si se debe hacer algo con la lista de celulares
         println("La Marca Y Sus Celulares Se Han Eliminado Exitosamente.")
     }
 
@@ -102,7 +99,7 @@ class Marca (
                 datosMarcas += marca.fechaFundacion.toString() + "\n"
                 datosMarcas += marca.cantidadModelos.toString() + "\n"
                 datosMarcas += marca.ingresosAnuales.toString() + "\n"
-                datosMarcas += "-\n" // Separar los datos de cada marca, excepto las lista de celulares
+                datosMarcas += "-\n" // Separar los datos de cada marca, excepto las listas de celulares
             }
         } else {
             datosMarcas += "st\n" // No hay marcas

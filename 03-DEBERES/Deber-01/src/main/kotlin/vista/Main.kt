@@ -13,6 +13,7 @@ import kotlin.collections.ArrayList
 fun main(){
     if (File("marcas.txt").exists() &&
         File("celulares.txt").exists()) {
+        // Leer los datos de los archivos y cargarlos al programa
         Marca().cargarMarcasYCelulares()
     }
 
@@ -45,7 +46,7 @@ fun main(){
     }
     lectorDatos.close()
 
-    // Aqui escribir los nuevos datos en los archivos
+    // Guardar los nuevos datos en los archivos
     guardarMarcasYCelulares()
 }
 
@@ -117,7 +118,6 @@ fun marcasCelular(){
             print("Ingresos Anuales: ")
             val ingresosAnuales: Double = lectorDatos.nextLine().toDouble()
 
-            // MANDAR ESTOS DATOS AL CONTROLADOR
             controladorMarca.manejadorCrearMarca(nombre, fechaFundFinal, cantidadModelos, ingresosAnuales)
             marcasCelular()
         }
@@ -177,7 +177,6 @@ fun marcasCelular(){
 
                 val listaCel = Marca().getByName(nombre)?.listaCelulares
 
-                // MANDAR ESTOS DATOS AL CONTROLADOR
                 controladorMarca.manejadorActualizarMarca(nombre, nombreAct, fechaFundFinalAct,
                     cantidadModelosAct, ingresosAnualesAct, listaCel)
 
@@ -249,9 +248,6 @@ fun celulares() {
                 val opcionGamer = lectorDatos.nextLine().toInt()
                 var esGamer: Boolean = opcionGamer == 1
 
-                // MANDAR ESTOS DATOS AL CONTROLADOR
-                // En el CONTROLADOR hacer que se cree el celular (Celular.kt) y que este se añada al arreglo de
-                // celulares de la marca que se obtuvo el nombre al inicio (Marca.kt).
                 controladorCelular.manejadorCrearCelular(nombreMarca, modelo, sistemaOperativo,
                     almacenamiento, precio, esGamer)
 
@@ -272,7 +268,6 @@ fun celulares() {
                         print("\nIngrese el modelo del Celular: ")
                         val celularVisualizar: String = lectorDatos.nextLine()
 
-                        // Llamar al controlador
                         controladorCelular.manejadorVisualizarCelular(1, nombreMarca, celularVisualizar)
                     }
                     ("2") -> {
@@ -356,12 +351,10 @@ fun leerMarcas(): ArrayList<ArrayList<String>> {
                     if (it != "-") { // Se obtienen los datos de una Marca
                         contenidoM.add(it)
                     } else { // Se guardan los datos de una Marca en un arreglo general
-                        // AL HACER CLEAR SE BORRA TODO, INCLUSO LO GUARDADO EN EL ARREGLO FINAL!!!
                         marcas.add(ArrayList(contenidoM))
                         contenidoM.clear()
                     }
                 } else {
-                    // Retornar NULL o algo similar porque no hay datos de marcas (ni celulares)
                     contenidoM.add("SD")
                     marcas.add(contenidoM)
                     return marcas
@@ -387,7 +380,6 @@ fun leerCelulares(): ArrayList<MutableList<Celular>> {
 
         lectorC.useLines { lines ->
             lines.forEach {
-                // contenidoM.append(it).append("\n")
                 if (it != "st") { // Verificar si hay Celulares de una Marca
                     if (it != "-" && it != "--") { // Se obtienen los datos de un Celular de una misma Marca
                         contenidoC.add(it)
@@ -395,14 +387,12 @@ fun leerCelulares(): ArrayList<MutableList<Celular>> {
                         celularesPorMarca.add(ArrayList(listaMutableCelulares))
                         listaMutableCelulares.clear()
                     } else {
-                        // celulares.add(contenidoC)
                         val celularRecuperado: Celular = Celular(contenidoC[0], contenidoC[1],
                             contenidoC[2].toInt(), contenidoC[3].toDouble(), contenidoC[4].toBooleanStrict())
                         listaMutableCelulares.add(celularRecuperado)
                         contenidoC.clear()
                     }
                 } else {
-                    // Se guarda un Celular con los atributos NULL en caso de que una marca no tenga celulares
                     listaMutableCelulares.add(Celular())
                     celularesPorMarca.add(ArrayList(listaMutableCelulares))
                     listaMutableCelulares.clear()
