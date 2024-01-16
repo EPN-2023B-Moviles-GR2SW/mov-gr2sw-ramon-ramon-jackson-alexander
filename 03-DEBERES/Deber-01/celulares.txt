@@ -1,9 +1,7 @@
-IPhone 13
+IPhone 14 Pro Max
 IOS
-128
-650.0
-false
+256
+1050.99
+true
 -
---
-st
 --
