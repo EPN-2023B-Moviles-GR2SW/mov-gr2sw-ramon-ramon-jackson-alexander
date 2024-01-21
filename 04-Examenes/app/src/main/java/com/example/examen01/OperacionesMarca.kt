@@ -14,9 +14,9 @@ class OperacionesMarca : AppCompatActivity() {
     val arreglo = BaseDatosMemoria.arregloMarca
     var posicionItemSeleccionado = -1
     var nombre: String = ""
-    var fechaFundacion: Date = Date()
-    var cantidadModelos: Int = 0
-    var ingresosAnuales: Double = 0.0
+    var fechaFundacion: String = ""
+    var cantidadModelos: String = ""
+    var ingresosAnuales: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +30,7 @@ class OperacionesMarca : AppCompatActivity() {
             val inputIngresosAnuales = findViewById<EditText>(R.id.input_ingresos_anuales)
 
             inputNombre.setText(arreglo[posicionItemSeleccionado].nombre)
-            inputFechaFundacion.setText(arreglo[posicionItemSeleccionado].fechaFundacion.toString())
+            inputFechaFundacion.setText(arreglo[posicionItemSeleccionado].fechaFundacion)
             inputCantidadModelos.setText(arreglo[posicionItemSeleccionado].cantidadModelos.toString())
             inputIngresosAnuales.setText(arreglo[posicionItemSeleccionado].ingresosAnuales.toString())
         }
@@ -39,15 +39,14 @@ class OperacionesMarca : AppCompatActivity() {
         if (posicionItemSeleccionado == -1) {
             botonCrear.setOnClickListener {
                 nombre = findViewById<EditText>(R.id.input_nombre).text.toString()
-                val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
-                fechaFundacion = formatoFecha.parse(findViewById<EditText>(R.id.input_fecha_fundacion).text.toString())
-                cantidadModelos = findViewById<EditText>(R.id.input_cantidad_modelos).text.toString().toInt()
-                ingresosAnuales = findViewById<EditText>(R.id.input_ingresos_anuales).text.toString().toDouble()
+                fechaFundacion = findViewById<EditText>(R.id.input_fecha_fundacion).text.toString()
+                cantidadModelos = findViewById<EditText>(R.id.input_cantidad_modelos).text.toString()
+                ingresosAnuales = findViewById<EditText>(R.id.input_ingresos_anuales).text.toString()
 
                 val listaCelulares: ArrayList<Celular> = arrayListOf()
 
                 arreglo.add(
-                    Marca(nombre.uppercase(), fechaFundacion, cantidadModelos, ingresosAnuales, listaCelulares)
+                    Marca(nombre, fechaFundacion, cantidadModelos.toInt(), ingresosAnuales.toDouble(), listaCelulares)
                 )
 
                 devolverRespuesta()
@@ -58,10 +57,9 @@ class OperacionesMarca : AppCompatActivity() {
         if (posicionItemSeleccionado != -1) {
             botonActualizar.setOnClickListener {
                 nombre = findViewById<EditText>(R.id.input_nombre).text.toString()
-                val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
-                fechaFundacion = formatoFecha.parse(findViewById<EditText>(R.id.input_fecha_fundacion).text.toString())
-                cantidadModelos = findViewById<EditText>(R.id.input_cantidad_modelos).text.toString().toInt()
-                ingresosAnuales = findViewById<EditText>(R.id.input_ingresos_anuales).text.toString().toDouble()
+                fechaFundacion = findViewById<EditText>(R.id.input_fecha_fundacion).text.toString()
+                cantidadModelos = findViewById<EditText>(R.id.input_cantidad_modelos).text.toString()
+                ingresosAnuales = findViewById<EditText>(R.id.input_ingresos_anuales).text.toString()
 
                 arreglo[posicionItemSeleccionado].nombre = nombre
                 arreglo[posicionItemSeleccionado].fechaFundacion = fechaFundacion

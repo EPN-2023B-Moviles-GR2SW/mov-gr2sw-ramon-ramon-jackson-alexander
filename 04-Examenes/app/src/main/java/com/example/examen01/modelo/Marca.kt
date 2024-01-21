@@ -4,7 +4,7 @@ import java.util.Date
 
 class Marca (
     var nombre: String,
-    var fechaFundacion: Date,
+    var fechaFundacion: String,
     var cantidadModelos: Int,
     var ingresosAnuales: Double,
     var listaCelulares: ArrayList<Celular>

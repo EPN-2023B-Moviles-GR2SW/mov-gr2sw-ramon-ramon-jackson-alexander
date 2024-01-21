@@ -51,8 +51,8 @@ class OperacionesCelulares : AppCompatActivity() {
                 esGamer = findViewById<EditText>(R.id.input_gamer).text.toString()
 
                 listaCelular.add(
-                    Celular(modelo.uppercase(), sistemaOperativo.uppercase(), almacenamientoGB.toInt(),
-                        precio.toDouble(), (esGamer.uppercase() == "SI"))
+                    Celular(modelo, sistemaOperativo, almacenamientoGB.toInt(), precio.toDouble(),
+                        (esGamer.uppercase() == "SI"))
                 )
 
                 devolverRespuesta()
