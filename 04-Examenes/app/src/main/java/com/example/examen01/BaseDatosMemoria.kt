@@ -22,11 +22,9 @@ class BaseDatosMemoria {
             listaCelulares3.add(Celular("IPhone 12", "IOS", 128, 310.0, true))
             listaCelulares3.add(Celular("IPhone 13", "IOS", 128, 540.0, true))
 
-            val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
-
-            arregloMarca.add(Marca("Xiaomi", formatoFecha.parse("08/10/2000"), 120, 1237890.48, listaCelulares1))
-            arregloMarca.add(Marca("Samsung", formatoFecha.parse("02/10/2000"), 200, 98745600.15, listaCelulares2))
-            arregloMarca.add(Marca("IOS", formatoFecha.parse("09/04/1992"), 84, 96325800.20, listaCelulares3))
+            arregloMarca.add(Marca("Xiaomi", "08/10/2000", 120, 1237890.48, listaCelulares1))
+            arregloMarca.add(Marca("Samsung", "02/10/2000", 200, 98745600.15, listaCelulares2))
+            arregloMarca.add(Marca("IOS", "09/04/1992", 84, 96325800.20, listaCelulares3))
         }
     }
 }
