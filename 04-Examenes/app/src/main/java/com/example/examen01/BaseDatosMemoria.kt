@@ -19,8 +19,8 @@ class BaseDatosMemoria {
             listaCelulares2.add(Celular("Galaxy s9 plus", "Android", 64, 210.0, false))
             listaCelulares2.add(Celular("Galaxy s23", "Android", 256, 849.99, true))
 
-            listaCelulares2.add(Celular("IPhone 12", "IOS", 128, 310.0, true))
-            listaCelulares2.add(Celular("IPhone 13", "IOS", 128, 540.0, true))
+            listaCelulares3.add(Celular("IPhone 12", "IOS", 128, 310.0, true))
+            listaCelulares3.add(Celular("IPhone 13", "IOS", 128, 540.0, true))
 
             val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
 

@@ -83,7 +83,7 @@ class ListViewCelulares : AppCompatActivity() {
                 return true
             }
             R.id.mi_eliminar_c -> {
-                mostrarSnackbar("Carro eliminado")
+                mostrarSnackbar("Celular eliminado")
                 listaCelular.removeAt(posicionItemSeleccionado)
                 adaptador.notifyDataSetChanged()
                 return true

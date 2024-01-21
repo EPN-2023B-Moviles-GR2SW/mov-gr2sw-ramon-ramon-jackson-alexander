@@ -17,8 +17,6 @@ class OperacionesMarca : AppCompatActivity() {
     var fechaFundacion: Date = Date()
     var cantidadModelos: Int = 0
     var ingresosAnuales: Double = 0.0
-    var ubicacion: String = ""
-    var empleados: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +53,6 @@ class OperacionesMarca : AppCompatActivity() {
                 devolverRespuesta()
             }
         }
-
 
         val botonActualizar = findViewById<Button>(R.id.btn_actualizar_m)
         if (posicionItemSeleccionado != -1) {
