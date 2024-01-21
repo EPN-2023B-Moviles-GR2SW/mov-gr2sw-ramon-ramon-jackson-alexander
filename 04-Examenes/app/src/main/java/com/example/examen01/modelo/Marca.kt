@@ -3,10 +3,10 @@ package com.example.examen01.modelo
 import java.util.Date
 
 class Marca (
-    val nombre: String,
-    val fechaFundacion: Date,
-    val cantidadModelos: Int,
-    val ingresosAnuales: Double,
+    var nombre: String,
+    var fechaFundacion: Date,
+    var cantidadModelos: Int,
+    var ingresosAnuales: Double,
     var listaCelulares: ArrayList<Celular>
 ) {
     override fun toString(): String {

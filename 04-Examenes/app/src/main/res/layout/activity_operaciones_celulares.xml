@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OperacionesCelulares">
+
+    <Button
+        android:id="@+id/btn_guardar_c"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Crear"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.786" />
+
+    <EditText
+        android:id="@+id/input_gamer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:ems="10"
+        android:hint="¿Es gamer? (SI o NO)"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/btn_guardar_c"
+        app:layout_constraintEnd_toEndOf="@+id/btn_guardar_c"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="@+id/btn_guardar_c" />
+
+    <EditText
+        android:id="@+id/input_precio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:ems="10"
+        android:hint="Precio"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/input_gamer"
+        app:layout_constraintEnd_toEndOf="@+id/input_gamer"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/input_gamer" />
+
+    <EditText
+        android:id="@+id/input_almacenamiento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:ems="10"
+        android:hint="Almacenamiento (GB)"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/input_precio"
+        app:layout_constraintEnd_toEndOf="@+id/input_precio"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/input_precio" />
+
+    <EditText
+        android:id="@+id/input_so"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:ems="10"
+        android:hint="Sistema operativo"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/input_almacenamiento"
+        app:layout_constraintEnd_toEndOf="@+id/input_almacenamiento"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/input_almacenamiento" />
+
+    <EditText
+        android:id="@+id/input_modelo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:ems="10"
+        android:hint="Modelo"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/input_so"
+        app:layout_constraintEnd_toEndOf="@+id/input_so"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/input_so" />
+
+    <TextView
+        android:id="@+id/textView_ga_c"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="Crear - Actualizar Celulares"
+        app:layout_constraintBottom_toTopOf="@+id/input_modelo"
+        app:layout_constraintEnd_toEndOf="@+id/input_modelo"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="@+id/input_modelo" />
+
+    <Button
+        android:id="@+id/btn_actualizar_c"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Actualizar"
+        app:layout_constraintEnd_toEndOf="@+id/btn_guardar_c"
+        app:layout_constraintStart_toStartOf="@+id/btn_guardar_c"
+        app:layout_constraintTop_toBottomOf="@+id/btn_guardar_c" />
+</androidx.constraintlayout.widget.ConstraintLayout>

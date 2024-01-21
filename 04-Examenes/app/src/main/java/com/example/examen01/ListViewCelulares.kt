@@ -2,6 +2,7 @@ package com.example.examen01
 
 import android.app.Activity
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ContextMenu
 import android.view.MenuItem
@@ -10,24 +11,17 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.examen01.modelo.Marca
-import com.example.examen01.ui.theme.Examen01Theme
+import com.example.examen01.modelo.Celular
 import com.google.android.material.snackbar.Snackbar
 
-class MainActivity : ComponentActivity() {
+class ListViewCelulares : AppCompatActivity() {
     val arreglo = BaseDatosMemoria.arregloMarca
+    var posicionArreglo = 0
     var posicionItemSeleccionado = 0
-    lateinit var adaptador: ArrayAdapter<Marca>
+    var listaCelular = arrayListOf<Celular>()
+    lateinit var adaptador: ArrayAdapter<Celular>
 
     val callbackContenido =
         registerForActivityResult(
@@ -35,7 +29,6 @@ class MainActivity : ComponentActivity() {
         ) { result ->
             if (result.resultCode === Activity.RESULT_OK) {
                 if (result.data != null) {
-                    // logica negocio
                     val data = result.data
                     adaptador.notifyDataSetChanged()
                 }
@@ -44,21 +37,27 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_marcas)
+        setContentView(R.layout.activity_list_view_celulares)
 
-        val listView = findViewById<ListView>(R.id.lv_list_view_marcas)
+        posicionArreglo = intent.getIntExtra("posicion", -1)
+
+        val txtNombreMarca = findViewById<TextView>(R.id.textView_nombre_m)
+        txtNombreMarca.text = "Celulares De La Marca ${arreglo[posicionArreglo].nombre}"
+
+        listaCelular = arreglo[posicionArreglo].listaCelulares
+        val listView = findViewById<ListView>(R.id.lv_list_celulares)
         adaptador = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
-            arreglo
+            listaCelular
         )
         listView.adapter = adaptador
         adaptador.notifyDataSetChanged()
 
-        val botonAnadirListView = findViewById<Button>(R.id.btn_crear_marca)
-        botonAnadirListView.setOnClickListener {
+        val botonAnadirCelularListView = findViewById<Button>(R.id.btn_crear_lc)
+        botonAnadirCelularListView.setOnClickListener {
             posicionItemSeleccionado = -1
-            abrirActividadConParametros(OperacionesMarca::class.java)
+            abrirActividadConParametros(OperacionesCelulares::class.java)
         }
 
         registerForContextMenu(listView)
@@ -71,7 +70,7 @@ class MainActivity : ComponentActivity() {
     ) {
         super.onCreateContextMenu(menu, v, menuInfo)
         val inflater = menuInflater
-        inflater.inflate(R.menu.menu_marcas, menu)
+        inflater.inflate(R.menu.menu_celulares, menu)
         val info = menuInfo as AdapterView.AdapterContextMenuInfo
         val posicion = info.position
         posicionItemSeleccionado = posicion
@@ -79,40 +78,30 @@ class MainActivity : ComponentActivity() {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.mi_editar_m -> {
-                abrirActividadConParametros(OperacionesMarca::class.java)
+            R.id.mi_editar_c -> {
+                abrirActividadConParametros(OperacionesCelulares::class.java)
                 return true
             }
-
-            R.id.mi_eliminar_m -> {
-                mostrarSnackbar("Marca ${arreglo[posicionItemSeleccionado].nombre} eliminada.")
-                // Eliminar completamente
-                arreglo.removeAt(posicionItemSeleccionado)
-                //arreglo[posicionItemSeleccionado].isOpen = false
+            R.id.mi_eliminar_c -> {
+                mostrarSnackbar("Carro eliminado")
+                listaCelular.removeAt(posicionItemSeleccionado)
                 adaptador.notifyDataSetChanged()
                 return true
             }
-
-            R.id.mi_ver_celulares -> {
-                abrirActividadConParametros(ListViewCelulares::class.java)
-                return true
-            }
-
             else -> super.onContextItemSelected(item)
         }
     }
 
-    fun mostrarSnackbar(texto: String) {
-        val snack = Snackbar.make(
-            findViewById(R.id.lv_list_view_marcas),
-            texto, Snackbar.LENGTH_LONG
-        )
+    private fun mostrarSnackbar(texto: String) {
+        val snack = Snackbar.make(findViewById(R.id.lv_list_celulares),
+            texto, Snackbar.LENGTH_LONG)
         snack.show()
     }
 
     private fun abrirActividadConParametros(clase: Class<*>) {
         val intentExplicito = Intent(this, clase)
         intentExplicito.putExtra("posicion", posicionItemSeleccionado)
+        intentExplicito.putExtra("posicionArreglo", posicionArreglo)
 
         callbackContenido.launch(intentExplicito)
     }
