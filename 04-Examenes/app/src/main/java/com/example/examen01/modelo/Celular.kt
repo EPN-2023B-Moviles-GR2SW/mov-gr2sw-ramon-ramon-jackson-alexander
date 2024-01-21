@@ -1,7 +1,7 @@
 package com.example.examen01.modelo
 
 class Celular (
-    val modelo: String,
+    var modelo: String,
     val sistemaOperativo: String,
     var almacenamientoGB: Int,
     var precio: Double,

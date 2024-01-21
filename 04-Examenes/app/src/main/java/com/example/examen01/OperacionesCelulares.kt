@@ -62,10 +62,12 @@ class OperacionesCelulares : AppCompatActivity() {
         val botonActualizar = findViewById<Button>(R.id.btn_actualizar_c)
         if (posicionItemSeleccionado != -1) {
             botonActualizar.setOnClickListener {
+                modelo = findViewById<EditText>(R.id.input_modelo).text.toString()
                 almacenamientoGB = findViewById<EditText>(R.id.input_almacenamiento).text.toString()
                 precio = findViewById<EditText>(R.id.input_precio).text.toString()
                 esGamer = findViewById<EditText>(R.id.input_gamer).text.toString()
 
+                listaCelular[posicionItemSeleccionado].modelo = modelo
                 listaCelular[posicionItemSeleccionado].almacenamientoGB = almacenamientoGB.toInt()
                 listaCelular[posicionItemSeleccionado].precio = precio.toDouble()
                 listaCelular[posicionItemSeleccionado].esGamer = (esGamer.uppercase() == "SI")
