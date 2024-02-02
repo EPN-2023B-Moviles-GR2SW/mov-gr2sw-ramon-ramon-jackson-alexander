@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OperacionesMarca">
+
+    <Button
+        android:id="@+id/btn_guardar_m"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Guardar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.737" />
+
+    <EditText
+        android:id="@+id/input_ingresos_anuales"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:ems="10"
+        android:hint="Ingresos anuales"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/btn_guardar_m"
+        app:layout_constraintEnd_toEndOf="@+id/btn_guardar_m"
+        app:layout_constraintStart_toStartOf="@+id/btn_guardar_m" />
+
+    <EditText
+        android:id="@+id/input_cantidad_modelos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:ems="10"
+        android:hint="Cantidad de modelos"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/input_ingresos_anuales"
+        app:layout_constraintEnd_toEndOf="@+id/input_ingresos_anuales"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/input_ingresos_anuales" />
+
+    <EditText
+        android:id="@+id/input_fecha_fundacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:ems="10"
+        android:hint="Fecha de fundacion"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/input_cantidad_modelos"
+        app:layout_constraintEnd_toEndOf="@+id/input_cantidad_modelos"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/input_cantidad_modelos" />
+
+    <EditText
+        android:id="@+id/input_nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:ems="10"
+        android:hint="Nombre"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/input_fecha_fundacion"
+        app:layout_constraintEnd_toEndOf="@+id/input_fecha_fundacion"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/input_fecha_fundacion" />
+
+    <TextView
+        android:id="@+id/textView_ga_m"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="68dp"
+        android:text="Crear - Actualizar Una Marca"
+        app:layout_constraintBottom_toTopOf="@+id/input_nombre"
+        app:layout_constraintEnd_toEndOf="@+id/input_nombre"
+        app:layout_constraintHorizontal_bias="0.468"
+        app:layout_constraintStart_toStartOf="@+id/input_nombre" />
+
+    <Button
+        android:id="@+id/btn_actualizar_m"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="Actualizar"
+        app:layout_constraintEnd_toEndOf="@+id/btn_guardar_m"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toStartOf="@+id/btn_guardar_m"
+        app:layout_constraintTop_toBottomOf="@+id/btn_guardar_m" />
+</androidx.constraintlayout.widget.ConstraintLayout>
