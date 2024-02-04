@@ -80,6 +80,10 @@ class MainActivity : AppCompatActivity() {
                 // Eliminar completamente
                 arreglo.removeAt(posicionItemSeleccionado)
                 //arreglo[posicionItemSeleccionado].isOpen = false
+
+                // Llamar al metodo de eliminar de la clase OperacionesMarca y mandar el nombre
+                // de la marca !!!
+
                 adaptador.notifyDataSetChanged()
                 return true
             }

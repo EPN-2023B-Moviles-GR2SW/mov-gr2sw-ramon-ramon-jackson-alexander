@@ -44,7 +44,7 @@ class OperacionesMarca : AppCompatActivity() {
                 val listaCelulares: ArrayList<Celular> = arrayListOf()
 
                 arreglo.add(
-                    Marca(nombre, fechaFundacion, cantidadModelos.toInt(), ingresosAnuales.toDouble(), listaCelulares)
+                    Marca(-1, nombre, fechaFundacion, cantidadModelos.toInt(), ingresosAnuales.toDouble(), listaCelulares)
                 )
 
                 devolverRespuesta()
@@ -63,6 +63,9 @@ class OperacionesMarca : AppCompatActivity() {
                 arreglo[posicionItemSeleccionado].fechaFundacion = fechaFundacion
                 arreglo[posicionItemSeleccionado].cantidadModelos = cantidadModelos.toInt()
                 arreglo[posicionItemSeleccionado].ingresosAnuales = ingresosAnuales.toDouble()
+
+                // mandar el nombre de la marca usando el "itemSeleccionado" para que el metodo
+                // de actualizar en BD se pueda hacer !!!
 
                 devolverRespuesta()
             }

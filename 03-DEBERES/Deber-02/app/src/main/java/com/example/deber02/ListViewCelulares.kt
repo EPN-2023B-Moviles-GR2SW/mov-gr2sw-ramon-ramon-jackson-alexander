@@ -56,6 +56,7 @@ class ListViewCelulares : AppCompatActivity() {
 
         val botonAnadirCelularListView = findViewById<Button>(R.id.btn_crear_lc)
         botonAnadirCelularListView.setOnClickListener {
+            nombreMarcaActual = arreglo[posicionArreglo].nombre
             posicionItemSeleccionado = -1
             abrirActividadConParametros(OperacionesCelulares::class.java)
         }
@@ -104,5 +105,9 @@ class ListViewCelulares : AppCompatActivity() {
         intentExplicito.putExtra("posicionArreglo", posicionArreglo)
 
         callbackContenido.launch(intentExplicito)
+    }
+
+    companion object {
+        var nombreMarcaActual: String = ""
     }
 }

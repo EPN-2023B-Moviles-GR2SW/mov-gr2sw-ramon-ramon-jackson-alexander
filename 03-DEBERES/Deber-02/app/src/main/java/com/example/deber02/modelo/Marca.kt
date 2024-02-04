@@ -1,6 +1,7 @@
 package com.example.deber02.modelo
 
 class Marca (
+    var idMarca: Int,
     var nombre: String,
     var fechaFundacion: String,
     var cantidadModelos: Int,

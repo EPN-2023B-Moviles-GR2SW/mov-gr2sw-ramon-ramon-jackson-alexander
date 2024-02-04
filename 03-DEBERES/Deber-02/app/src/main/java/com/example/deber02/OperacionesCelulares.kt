@@ -50,8 +50,11 @@ class OperacionesCelulares : AppCompatActivity() {
                 precio = findViewById<EditText>(R.id.input_precio).text.toString()
                 esGamer = findViewById<EditText>(R.id.input_gamer).text.toString()
 
+                // Llamar al metodo crear celular de SQLiteHelperCelular, enviar los datos del celular
+                // y tambien el id de la marca. Se le puede obtener asi: val id_marca = arreglo[posicionArreglo].idMarca
+
                 listaCelular.add(
-                    Celular(modelo, sistemaOperativo, almacenamientoGB.toInt(), precio.toDouble(),
+                    Celular(-1, modelo, sistemaOperativo, almacenamientoGB.toInt(), precio.toDouble(),
                         (esGamer.uppercase() == "SI"))
                 )
 
@@ -66,6 +69,9 @@ class OperacionesCelulares : AppCompatActivity() {
                 almacenamientoGB = findViewById<EditText>(R.id.input_almacenamiento).text.toString()
                 precio = findViewById<EditText>(R.id.input_precio).text.toString()
                 esGamer = findViewById<EditText>(R.id.input_gamer).text.toString()
+
+                // Llamar al metodo actualizar celular de SQLiteHelperCelular, enviar los datos del celular
+                // y tambien el id de la marca. Se le puede obtener asi: val id_marca = arreglo[posicionArreglo].idMarca
 
                 listaCelular[posicionItemSeleccionado].modelo = modelo
                 listaCelular[posicionItemSeleccionado].almacenamientoGB = almacenamientoGB.toInt()
