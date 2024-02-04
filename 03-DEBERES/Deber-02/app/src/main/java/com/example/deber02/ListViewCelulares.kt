@@ -13,15 +13,17 @@ import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.deber02.bd.BaseDeDatos
+import com.example.deber02.bd.SQLiteHelperCelular
 import com.example.deber02.modelo.Celular
 import com.google.android.material.snackbar.Snackbar
 
 class ListViewCelulares : AppCompatActivity() {
-    val arreglo = BaseDatosMemoria.arregloMarca
+    lateinit var adaptador: ArrayAdapter<Celular>
+    private val dbHelperCelular = SQLiteHelperCelular(this)
     var posicionArreglo = 0
     var posicionItemSeleccionado = 0
-    var listaCelular = arrayListOf<Celular>()
-    lateinit var adaptador: ArrayAdapter<Celular>
+    var listaCelular = mutableListOf<Celular>()
 
     val callbackContenido =
         registerForActivityResult(
@@ -29,7 +31,6 @@ class ListViewCelulares : AppCompatActivity() {
         ) { result ->
             if (result.resultCode === Activity.RESULT_OK) {
                 if (result.data != null) {
-                    val data = result.data
                     adaptador.notifyDataSetChanged()
                 }
             }
@@ -39,12 +40,15 @@ class ListViewCelulares : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_view_celulares)
 
+        BaseDeDatos.tablaCelular = SQLiteHelperCelular(this)
+
         posicionArreglo = intent.getIntExtra("posicion", -1)
 
-        val txtNombreMarca = findViewById<TextView>(R.id.textView_nombre_m)
-        txtNombreMarca.text = "Celulares De La Marca ${arreglo[posicionArreglo].nombre}"
+        val txtMarca = findViewById<TextView>(R.id.textView_nombre_m)
+        txtMarca.text = "Marca: ${BaseDeDatos.tablaMarca?.obtenerTodasMarcas()?.get(posicionArreglo)?.nombre}"
 
-        listaCelular = arreglo[posicionArreglo].listaCelulares
+        listaCelular = dbHelperCelular.obtenerTodosCelulares(BaseDeDatos.tablaMarca?.obtenerTodasMarcas()?.get(posicionArreglo)?.idMarca ?: -1)
+            .toMutableList()
         val listView = findViewById<ListView>(R.id.lv_list_celulares)
         adaptador = ArrayAdapter(
             this,
@@ -52,12 +56,9 @@ class ListViewCelulares : AppCompatActivity() {
             listaCelular
         )
         listView.adapter = adaptador
-        adaptador.notifyDataSetChanged()
 
-        val botonAnadirCelularListView = findViewById<Button>(R.id.btn_crear_lc)
-        botonAnadirCelularListView.setOnClickListener {
-            nombreMarcaActual = arreglo[posicionArreglo].nombre
-            posicionItemSeleccionado = -1
+        val botonAnadirListView = findViewById<Button>(R.id.btn_crear_lc)
+        botonAnadirListView.setOnClickListener {
             abrirActividadConParametros(OperacionesCelulares::class.java)
         }
 
@@ -75,6 +76,7 @@ class ListViewCelulares : AppCompatActivity() {
         val info = menuInfo as AdapterView.AdapterContextMenuInfo
         val posicion = info.position
         posicionItemSeleccionado = posicion
+        adaptador.notifyDataSetChanged()
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
@@ -84,8 +86,12 @@ class ListViewCelulares : AppCompatActivity() {
                 return true
             }
             R.id.mi_eliminar_c -> {
+                dbHelperCelular.eliminarCelular(
+                    dbHelperCelular.obtenerTodosCelulares(
+                        BaseDeDatos.tablaMarca?.obtenerTodasMarcas()?.get(posicionArreglo)?.idMarca ?: -1
+                    )[posicionItemSeleccionado].idCelular
+                )
                 mostrarSnackbar("Celular eliminado")
-                listaCelular.removeAt(posicionItemSeleccionado)
                 adaptador.notifyDataSetChanged()
                 return true
             }
@@ -105,9 +111,5 @@ class ListViewCelulares : AppCompatActivity() {
         intentExplicito.putExtra("posicionArreglo", posicionArreglo)
 
         callbackContenido.launch(intentExplicito)
-    }
-
-    companion object {
-        var nombreMarcaActual: String = ""
     }
 }

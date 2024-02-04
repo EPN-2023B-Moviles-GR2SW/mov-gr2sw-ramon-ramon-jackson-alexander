@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import com.example.deber02.modelo.Marca
 import java.sql.SQLException
 
-class SqliteHelperMarca (
+class SQLiteHelperMarca (
     contexto: Context?, // THIS
 ) : SQLiteOpenHelper(
     contexto,
@@ -94,7 +94,7 @@ class SqliteHelperMarca (
     }
 
     @SuppressLint("Range")
-    fun obtenerTodosMarcas(): List<Marca> {
+    fun obtenerTodasMarcas(): List<Marca> {
         val marcas = mutableListOf<Marca>()
         val baseDatosLectura = readableDatabase
         val cursor: Cursor?

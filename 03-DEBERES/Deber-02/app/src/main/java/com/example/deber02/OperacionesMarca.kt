@@ -5,11 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import com.example.deber02.modelo.Celular
-import com.example.deber02.modelo.Marca
+import android.widget.TextView
+import com.example.deber02.bd.BaseDeDatos
 
 class OperacionesMarca : AppCompatActivity() {
-    val arreglo = BaseDatosMemoria.arregloMarca
     var posicionItemSeleccionado = -1
     var nombre: String = ""
     var fechaFundacion: String = ""
@@ -19,18 +18,22 @@ class OperacionesMarca : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_operaciones_marca)
+
         posicionItemSeleccionado = intent.getIntExtra("posicion", -1)
+
+        // Obtener la instancia de la db desde BaseDeDatos
+        val dbHelperMarca = BaseDeDatos.tablaMarca
 
         if (posicionItemSeleccionado != -1) {
             val inputNombre = findViewById<EditText>(R.id.input_nombre)
-            val inputFechaFundacion = findViewById<EditText>(R.id.input_fecha_fundacion)
-            val inputCantidadModelos = findViewById<EditText>(R.id.input_cantidad_modelos)
-            val inputIngresosAnuales = findViewById<EditText>(R.id.input_ingresos_anuales)
+            val inputFechaFundacion = findViewById<TextView>(R.id.input_fecha_fundacion)
+            val inputCantidadModelos = findViewById<TextView>(R.id.input_cantidad_modelos)
+            val inputIngresosAnuales = findViewById<TextView>(R.id.input_ingresos_anuales)
 
-            inputNombre.setText(arreglo[posicionItemSeleccionado].nombre)
-            inputFechaFundacion.setText(arreglo[posicionItemSeleccionado].fechaFundacion)
-            inputCantidadModelos.setText(arreglo[posicionItemSeleccionado].cantidadModelos.toString())
-            inputIngresosAnuales.setText(arreglo[posicionItemSeleccionado].ingresosAnuales.toString())
+            inputNombre.setText(dbHelperMarca?.obtenerTodasMarcas()?.get(posicionItemSeleccionado)?.nombre)
+            inputFechaFundacion.setText(dbHelperMarca?.obtenerTodasMarcas()?.get(posicionItemSeleccionado)?.fechaFundacion)
+            inputCantidadModelos.setText(dbHelperMarca?.obtenerTodasMarcas()?.get(posicionItemSeleccionado)?.cantidadModelos.toString())
+            inputIngresosAnuales.setText(dbHelperMarca?.obtenerTodasMarcas()?.get(posicionItemSeleccionado)?.ingresosAnuales.toString())
         }
 
         val botonCrear = findViewById<Button>(R.id.btn_guardar_m)
@@ -41,11 +44,9 @@ class OperacionesMarca : AppCompatActivity() {
                 cantidadModelos = findViewById<EditText>(R.id.input_cantidad_modelos).text.toString()
                 ingresosAnuales = findViewById<EditText>(R.id.input_ingresos_anuales).text.toString()
 
-                val listaCelulares: ArrayList<Celular> = arrayListOf()
+                dbHelperMarca?.crearMarca(nombre, fechaFundacion, cantidadModelos.toInt(), ingresosAnuales.toDouble())
 
-                arreglo.add(
-                    Marca(-1, nombre, fechaFundacion, cantidadModelos.toInt(), ingresosAnuales.toDouble(), listaCelulares)
-                )
+                dbHelperMarca?.close()
 
                 devolverRespuesta()
             }
@@ -59,21 +60,23 @@ class OperacionesMarca : AppCompatActivity() {
                 cantidadModelos = findViewById<EditText>(R.id.input_cantidad_modelos).text.toString()
                 ingresosAnuales = findViewById<EditText>(R.id.input_ingresos_anuales).text.toString()
 
-                arreglo[posicionItemSeleccionado].nombre = nombre
-                arreglo[posicionItemSeleccionado].fechaFundacion = fechaFundacion
-                arreglo[posicionItemSeleccionado].cantidadModelos = cantidadModelos.toInt()
-                arreglo[posicionItemSeleccionado].ingresosAnuales = ingresosAnuales.toDouble()
+                dbHelperMarca?.actualizarMarca(
+                    nombre,
+                    fechaFundacion,
+                    cantidadModelos.toInt(),
+                    ingresosAnuales.toDouble(),
+                    dbHelperMarca.obtenerTodasMarcas()?.get(posicionItemSeleccionado)?.idMarca ?: 0
+                )
 
-                // mandar el nombre de la marca usando el "itemSeleccionado" para que el metodo
-                // de actualizar en BD se pueda hacer !!!
+                dbHelperMarca?.close()
 
                 devolverRespuesta()
             }
         }
-
     }
 
     private fun devolverRespuesta() {
+        // Devuelve la posición del item modificado
         val intentDevolverParametros = Intent()
         intentDevolverParametros.putExtra("posicion", posicionItemSeleccionado)
 

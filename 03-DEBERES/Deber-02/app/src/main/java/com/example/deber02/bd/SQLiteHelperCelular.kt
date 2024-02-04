@@ -106,7 +106,7 @@ class SQLiteHelperCelular (
 
     @SuppressLint("Range")
     fun obtenerTodosCelulares(idMarca: Int): List<Celular> {
-        val carros = mutableListOf<Celular>()
+        val celulares = mutableListOf<Celular>()
         val baseDatosLectura = readableDatabase
         val cursor: Cursor?
 
@@ -125,13 +125,13 @@ class SQLiteHelperCelular (
                 val precio = cursor.getDouble(cursor.getColumnIndex("precio"))
                 val es_gamer = cursor.getInt(cursor.getColumnIndex("es_gamer")) == 1
 
-                carros.add(Celular(id, sistema_operativo, modelo, almacenamiento_gb, precio, es_gamer, idMarca))
+                celulares.add(Celular(id, sistema_operativo, modelo, almacenamiento_gb, precio, es_gamer, idMarca))
             } while (cursor.moveToNext())
         }
 
         cursor?.close()
         baseDatosLectura.close()
 
-        return carros
+        return celulares
     }
 }

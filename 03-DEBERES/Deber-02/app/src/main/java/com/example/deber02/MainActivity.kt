@@ -12,24 +12,24 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.deber02.bd.BaseDeDatos
+import com.example.deber02.bd.SQLiteHelperCelular
+import com.example.deber02.bd.SQLiteHelperMarca
 import com.example.deber02.modelo.Marca
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
-    val arreglo = BaseDatosMemoria.arregloMarca
-    var posicionItemSeleccionado = 0
     lateinit var adaptador: ArrayAdapter<Marca>
+    private val dbHelperMarca = BaseDeDatos.tablaMarca
 
     val callbackContenido =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
-            if (result.resultCode === Activity.RESULT_OK) {
-                if (result.data != null) {
-                    // logica negocio
-                    val data = result.data
-                    adaptador.notifyDataSetChanged()
-                }
+            if (result.resultCode == Activity.RESULT_OK) {
+                adaptador.clear()
+                adaptador.addAll(dbHelperMarca?.obtenerTodasMarcas() ?: mutableListOf())
+                adaptador.notifyDataSetChanged()
             }
         }
 
@@ -37,18 +37,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_marcas)
 
+        BaseDeDatos.tablaMarca = SQLiteHelperMarca(this)
+        BaseDeDatos.tablaCelular = SQLiteHelperCelular(this)
+
         val listView = findViewById<ListView>(R.id.lv_list_view_marcas)
         adaptador = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
-            arreglo
+            dbHelperMarca?.obtenerTodasMarcas() ?: mutableListOf()
         )
         listView.adapter = adaptador
-        adaptador.notifyDataSetChanged()
 
         val botonAnadirListView = findViewById<Button>(R.id.btn_crear_marca)
         botonAnadirListView.setOnClickListener {
-            posicionItemSeleccionado = -1
             abrirActividadConParametros(OperacionesMarca::class.java)
         }
 
@@ -65,26 +66,28 @@ class MainActivity : AppCompatActivity() {
         inflater.inflate(R.menu.menu_marcas, menu)
         val info = menuInfo as AdapterView.AdapterContextMenuInfo
         val posicion = info.position
-        posicionItemSeleccionado = posicion
+        adaptador.notifyDataSetChanged()
+        mostrarSnackbar("Posición seleccionada: $posicion")
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
+        val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
+        val posicion = info.position
+
+        when (item.itemId) {
             R.id.mi_editar_m -> {
-                abrirActividadConParametros(OperacionesMarca::class.java)
+                abrirActividadConParametros(OperacionesMarca::class.java, posicion)
                 return true
             }
 
             R.id.mi_eliminar_m -> {
-                mostrarSnackbar("Marca ${arreglo[posicionItemSeleccionado].nombre} eliminada.")
-                // Eliminar completamente
-                arreglo.removeAt(posicionItemSeleccionado)
-                //arreglo[posicionItemSeleccionado].isOpen = false
-
-                // Llamar al metodo de eliminar de la clase OperacionesMarca y mandar el nombre
-                // de la marca !!!
-
+                dbHelperMarca?.eliminarMarca(
+                    dbHelperMarca?.obtenerTodasMarcas()?.get(posicion)?.idMarca ?: 0
+                )
+                adaptador.clear()
+                adaptador.addAll(dbHelperMarca?.obtenerTodasMarcas() ?: mutableListOf())
                 adaptador.notifyDataSetChanged()
+                mostrarSnackbar("Marca eliminada")
                 return true
             }
 
@@ -93,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
 
-            else -> super.onContextItemSelected(item)
+            else -> return super.onContextItemSelected(item)
         }
     }
 
@@ -105,10 +108,9 @@ class MainActivity : AppCompatActivity() {
         snack.show()
     }
 
-    private fun abrirActividadConParametros(clase: Class<*>) {
+    private fun abrirActividadConParametros(clase: Class<*>, posicion: Int? = null) {
         val intentExplicito = Intent(this, clase)
-        intentExplicito.putExtra("posicion", posicionItemSeleccionado)
-
+        intentExplicito.putExtra("posicion", posicion ?: -1)
         callbackContenido.launch(intentExplicito)
     }
 }
