@@ -2,21 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/inicio"
-        android:icon="@android:drawable/ic_menu_myplaces"
+        android:icon="@drawable/outline_home_white_48"
         android:title="Inicio"/>
 
     <item
         android:id="@+id/servicios"
-        android:icon="@android:drawable/ic_menu_myplaces"
+        android:icon="@drawable/outline_apps_white_48"
         android:title="Servicios"/>
 
     <item
         android:id="@+id/actividad"
-        android:icon="@android:drawable/ic_menu_myplaces"
+        android:icon="@drawable/actividad"
         android:title="Actividad"/>
 
     <item
         android:id="@+id/cuenta"
-        android:icon="@android:drawable/ic_menu_myplaces"
+        android:icon="@drawable/outline_perm_identity_white_48"
         android:title="Cuenta"/>
 </menu>
