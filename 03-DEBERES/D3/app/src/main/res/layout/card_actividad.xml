@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_actividad"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    card_view:cardElevation="0dp"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/img_carro_viaje"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/img_carro_actividad"/>
+
+        <TextView
+            android:id="@+id/txt_direccion"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Escuela Politécnica Nacional"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/img_carro_viaje"
+            android:layout_alignParentTop="true"/>
+
+        <TextView
+            android:id="@+id/txt_fecha_hora"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="16 dic - 7:36 pm"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_below="@id/txt_direccion"
+            android:layout_toEndOf="@id/img_carro_viaje"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:id="@+id/txt_precio"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="$4.8"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_below="@id/txt_fecha_hora"
+            android:layout_toEndOf="@id/img_carro_viaje"
+            android:layout_marginStart="10dp"
+            android:layout_alignParentBottom="true"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_repetir_solicitud"
+            card_view:cardBackgroundColor="#E5E8E8"
+            card_view:cardCornerRadius="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <ImageView
+                    android:id="@+id/img_flecha_regreso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/replay_circle_filled_24"
+                    android:layout_marginStart="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/txt_repetir_soli"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Repetir solicitud"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@+id/img_flecha_regreso"
+                    android:layout_centerVertical="true"
+                    />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

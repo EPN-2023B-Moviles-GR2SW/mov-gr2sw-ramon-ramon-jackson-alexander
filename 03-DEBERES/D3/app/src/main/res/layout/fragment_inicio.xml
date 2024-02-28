@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context=".Inicio">
+
+    <ImageView
+        android:id="@+id/img_opcion_viaje"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/directions_car_24"
+        android:layout_marginTop="21dp"
+        android:layout_marginStart="50dp"
+        />
+
+    <TextView
+        android:id="@+id/opcion_viajes"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="Viajes"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="80dp"
+        />
+
+    <TextView
+        android:id="@+id/linea_opcion_viajes"
+        android:layout_width="205dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textColor="@color/black"
+        android:textSize="2sp"
+        android:textStyle="bold"
+        android:layout_marginTop="65dp"
+        android:background="@color/black"
+        />
+
+    <ImageView
+        android:id="@+id/img_opcion_pedidos"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/food_bank_24"
+        android:layout_marginTop="21dp"
+        android:layout_marginStart="255dp"
+        />
+
+    <TextView
+        android:id="@+id/opcion_pedidos"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="Pedidos"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="285dp"
+        />
+
+    <TextView
+        android:id="@+id/linea_opcion_pedidos"
+        android:layout_width="205dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textColor="@color/black"
+        android:textSize="2sp"
+        android:textStyle="bold"
+        android:layout_marginTop="65dp"
+        android:layout_marginStart="205dp"
+        android:background="@color/black"
+        android:visibility="invisible"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_a_donde_vas"
+        card_view:cardBackgroundColor="#E5E8E8"
+        card_view:cardCornerRadius="40dp"
+        card_view:contentPadding="4dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:id="@+id/img_buscar"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/search_24"
+                android:layout_centerVertical="true"
+                />
+
+            <TextView
+                android:id="@+id/input_a_donde_vas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="¿A dónde vas?"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_toEndOf="@+id/img_buscar"
+                android:layout_toRightOf="@+id/img_buscar"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="15dp"
+                />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/card_ahora"
+                card_view:cardBackgroundColor="#FFFFFF"
+                card_view:cardCornerRadius="20dp"
+                card_view:contentPadding="4dp"
+                android:layout_marginStart="230dp"
+                android:layout_centerVertical="true"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="15dp"
+                        android:id="@+id/img_reloj"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/access_time_filled_24"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_centerVertical="true"
+                        />
+
+                    <TextView
+                        android:id="@+id/input_ahora"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="4dp"
+                        android:layout_toEndOf="@+id/img_reloj"
+                        android:text="Ahora"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="15dp"
+                        android:id="@+id/img_flecha"
+                        android:layout_toEndOf="@+id/input_ahora"
+                        android:layout_toRightOf="@+id/input_ahora"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/keyboard_arrow_down_24"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_centerVertical="true"
+                        />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_sugerencias"
+        android:text="Sugerencias"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="170dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_ver_todo"
+        android:text="Ver todo"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="320dp"
+        android:layout_marginTop="176dp"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_contenedor_sugerencias"
+        card_view:contentPaddingTop="4dp"
+        card_view:contentPaddingBottom="4dp"
+        android:layout_marginTop="210dp"
+        card_view:cardElevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/card_viaje"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                card_view:cardBackgroundColor="#E5E8E8"
+                card_view:cardCornerRadius="10dp"
+                card_view:contentPadding="4dp"
+                android:layout_marginStart="20dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img_carro"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/directions_car_24"
+                        android:layout_marginTop="10dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_carro"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Viaje"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:layout_centerHorizontal="true"
+                        />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/card_envios"
+                android:layout_toEndOf="@+id/card_viaje"
+                android:layout_alignParentTop="true"
+                card_view:cardBackgroundColor="#E5E8E8"
+                card_view:cardCornerRadius="10dp"
+                card_view:contentPadding="4dp"
+                android:layout_marginStart="20dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:id="@+id/img_paquete"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/giftcard_24"
+                        android:layout_marginTop="10dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_paquete"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Envíos"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:layout_centerHorizontal="true"
+                        />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/card_reserve"
+                android:layout_toEndOf="@+id/card_envios"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                card_view:cardBackgroundColor="#E5E8E8"
+                card_view:cardCornerRadius="10dp"
+                card_view:contentPadding="4dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:id="@+id/img_calendario"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/calendar_month_24"
+                        android:layout_marginTop="10dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_calendario"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Reserve"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:layout_centerHorizontal="true"
+                        />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_planea"
+        android:text="Planea tu próximo viaje"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="340dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_planea_proximo_viaje"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="380dp"
+        android:orientation="horizontal"/>
+
+</FrameLayout>
