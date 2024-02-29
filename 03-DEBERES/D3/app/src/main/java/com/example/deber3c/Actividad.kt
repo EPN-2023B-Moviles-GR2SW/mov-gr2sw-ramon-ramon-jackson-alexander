@@ -34,13 +34,6 @@ class Actividad : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adaptadorActividad
 
-        // Datos para el RecyclerView
-        /*
-        val titlesContactos = arrayOf("TRANS EXPRESS INC.", "JUAN GALINDEZ", "PEDRO QUINTANA",
-            "ANDRES PEREZ", "BELEN JULIO")
-        val imagesContactos = intArrayOf(R.drawable.icon_shop, R.drawable.icon_name_jg,
-            R.drawable.icon_name_pq, R.drawable.icon_name_ap, R.drawable.icon_name_bj)*/
-
         return rootView
     }
 
