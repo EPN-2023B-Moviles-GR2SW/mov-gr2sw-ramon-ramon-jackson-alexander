@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "341744751844",
+    "project_id": "b2023-gr2sw-jarr-examen02",
+    "storage_bucket": "b2023-gr2sw-jarr-examen02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341744751844:android:81d1e836013121883748f1",
+        "android_client_info": {
+          "package_name": "com.example.examen02"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADXLkqzc1oOOQks5Je5ArE7WPv4EDiISc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
