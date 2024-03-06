@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    tools:context=".Inicio"
+    android:background="@color/white">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_buscar"
+        card_view:cardBackgroundColor="@color/c4"
+        card_view:cardCornerRadius="40dp"
+        card_view:contentPadding="4dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:id="@+id/img_buscar"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/search_24"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_buscar_en_mc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Buscar en MercadoClic"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toEndOf="@+id/img_buscar"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="15dp"
+            />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="100dp"
+        android:background="@color/c3">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/img_ubicacion"
+            android:src="@android:drawable/ic_menu_mylocation"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"/>
+
+        <TextView
+            android:id="@+id/input_direccion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="50dp"
+            android:text="Dirección de envío"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/icn_opciones"
+            android:src="@android:drawable/arrow_down_float"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="220dp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_prod_mas_vendidos"
+        android:layout_marginTop="170dp"
+        android:text="Productos más vendidos en la semana"
+        android:textColor="@color/c2"
+        android:textSize="20sp"
+        android:layout_marginStart="15dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_prod_mas_vendidos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="220dp"
+        android:orientation="horizontal"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_cat_mas_vendidas"
+        android:layout_marginTop="440dp"
+        android:text="Categorías más vendidos en la semana"
+        android:textColor="@color/c2"
+        android:textSize="20sp"
+        android:layout_marginStart="15dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_cat_mas_vendidas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="490dp"
+        android:orientation="horizontal"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_ofertas"
+        android:layout_marginTop="680dp"
+        android:text="Ofertas de la tienda"
+        android:textColor="@color/c2"
+        android:textSize="20sp"
+        android:layout_marginStart="15dp"
+        />
+
+</FrameLayout>
